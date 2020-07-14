@@ -11,6 +11,7 @@ before_install:
   - pip install hererocks
   - hererocks ~/build/lua_install -r^ --$LUA
   - export PATH=$PATH:~/build/lua_install/bin
+  - export FILE=$HOME/.luacheckcache
 install:
   - luarocks install luacheck
 script:
@@ -56,4 +57,6 @@ deploy:
 before_cache:
   - rm -f $HOME/.cache/pip/log/debug.log
 cache:
-  - .luacheckcache
+  - $FILE
+  directories:	
+  - $HOME/.cache/pip
