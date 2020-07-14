@@ -11,11 +11,11 @@ before_install:
   - pip install hererocks
   - hererocks ~/build/lua_install -r^ --$LUA
   - export PATH=$PATH:~/build/lua_install/bin
-  - export FILE=$HOME/.luacheckcache
+  - export FILE=$HOME/.cache/pip/.luacheckcache
 install:
   - luarocks install luacheck
 script:
-  - "if [[ $TRAVIS_EVENT_TYPE != 'cron' && $TRAVIS_EVENT_TYPE != 'api' ]]; then luacheck . --cache; fi"
+  - "if [[ $TRAVIS_EVENT_TYPE != 'cron' && $TRAVIS_EVENT_TYPE != 'api' ]]; then luacheck . --cache $FILE; fi"
 before_deploy:
   - ./.travis/check_locale.sh
   - git config --local user.name "$github_user_name"
@@ -57,6 +57,6 @@ deploy:
 before_cache:
   - rm -f $HOME/.cache/pip/log/debug.log
 cache:
-  - $FILE
+  - ".luacheckcache"
   directories:	
   - $HOME/.cache/pip
