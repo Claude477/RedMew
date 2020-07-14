@@ -56,6 +56,5 @@ deploy:
 before_cache:
   - rm -f $HOME/.cache/pip/log/debug.log
 cache:
-  pip: true
   directories:
   - $HOME/.travis
